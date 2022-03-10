@@ -1,14 +1,19 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
+
         <a href="/" class="navbar-brand">Lista de Contatos</a>
+
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="nav-item">                    
-                    <%= link_to 'Nova conta', new_user_path, class: "nav-link active"%>
-                </li>
+                <% if !user_signed_in? %>
+                    <li class="nav-item">                    
+                        <%= link_to 'Nova conta', new_user_path, class: "nav-link active"%>
+                    </li>
+                
+                <% end %>
 
                 <% if user_signed_in? %>
                   <li class="nav-item dropdown">
@@ -31,8 +36,9 @@
                 <li class="nav-item dropdown">
                     <a href="/entrar" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Bem vindo, <%= current_user.name %></a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a href="#" class="dropdown-item">Reports</a>
-                        <a href="#" class="dropdown-item">Settings</a>
+                        <%= link_to 'Minha página', contacts_path, class: "dropdown-item" %>
+                       <!-- <%= link_to 'Minha página2', user_path(current_user), class: "dropdown-item" %> -->
+                        <a href="#" class="dropdown-item">Editar</a>
                         <div class="dropdown-divider"></div>
                         
                         <%= link_to 'Sair', sair_path, method: :delete , class: "dropdown-item" %>
@@ -40,7 +46,7 @@
                     </div>
                 </li>                
                 <% else %>
-                   <%= link_to 'Entrar', sair_path, method: :delete , class: "nav-link active" %>
+                   <%= link_to 'Entrar', entrar_path, class: "nav-link active" %>
                 <% end %>
             </ul>
 
